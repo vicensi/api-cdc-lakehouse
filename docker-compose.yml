@@ -1,0 +1,12 @@
+services:
+  mock_api:
+    build: ./mock_api
+    ports:
+      - "8000:8000"
+    environment:
+      DB_PATH: /data/mock.db
+    volumes:
+      - mock_data:/data        # persiste o estado da "fonte" entre reinícios
+    restart: unless-stopped
+volumes:
+  mock_data:

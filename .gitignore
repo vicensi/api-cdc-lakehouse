@@ -1,0 +1,8 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+.databricks/

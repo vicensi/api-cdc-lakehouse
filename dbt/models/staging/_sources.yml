@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: silver
+    description: "Tabelas Silver (estado atual, 1 linha por id), mantidas pelo notebook de CDC."
+    database: credito_lab     # no Databricks, "database" do dbt = catálogo do Unity Catalog
+    schema: silver
+    tables:
+      - name: clientes
+      - name: contratos
+      - name: parcelas

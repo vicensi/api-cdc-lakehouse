@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_clientes
+    columns:
+      - name: cliente_id
+        data_tests: [not_null, unique]
+
+  - name: stg_contratos
+    columns:
+      - name: contrato_id
+        data_tests: [not_null, unique]
+
+  - name: stg_parcelas
+    columns:
+      - name: parcela_id
+        data_tests: [not_null, unique]
+      - name: status
+        data_tests:
+          - accepted_values:
+              values: ["pendente", "paga", "atrasada"]

@@ -1,0 +1,12 @@
+# Sem segredos aqui: tudo vem de variáveis de ambiente (.env), então este arquivo pode ir para o Git.
+credito_lakehouse:
+  target: dev
+  outputs:
+    dev:
+      type: databricks
+      catalog: credito_lab
+      schema: gold            # schema padrão (quem define +schema, como staging, sobrescreve)
+      host: "{{ env_var('DATABRICKS_HOST') | replace('https://', '') }}"
+      http_path: "{{ env_var('DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      threads: 4

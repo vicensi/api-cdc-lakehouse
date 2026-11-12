@@ -1,0 +1,17 @@
+name: credito_lakehouse
+version: "1.0.0"
+profile: credito_lakehouse
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+target-path: "target"
+
+models:
+  credito_lakehouse:
+    staging:
+      +materialized: view      # staging é só uma consulta salva, sem custo de armazenamento
+      +schema: staging
+    marts:
+      +materialized: table     # marts são gravados, prontos para consumo
+      +schema: gold

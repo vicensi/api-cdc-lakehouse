@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: dim_clientes
+    description: "Dimensão de clientes. Uma linha por cliente ativo, com resumo de contratos."
+    columns:
+      - name: cliente_id
+        data_tests: [not_null, unique]
+      - name: faixa_risco
+        description: "baixo (score >= 700), medio (500 a 699), alto (< 500)."
+        data_tests:
+          - accepted_values:
+              values: ["baixo", "medio", "alto"]
+
+  - name: fct_parcelas
+    description: "Fato de parcelas. Uma linha por parcela, com contrato e cliente anexados."
+    columns:
+      - name: parcela_id
+        data_tests: [not_null, unique]
+      - name: cliente_id
+        data_tests:
+          - relationships:
+              to: ref('dim_clientes')
+              field: cliente_id
+      - name: contrato_id
+        data_tests:
+          - relationships:
+              to: ref('stg_contratos')
+              field: contrato_id
+      - name: dias_atraso
+        description: "Pagas: dias entre vencimento e pagamento. Atrasadas: dias desde o vencimento até hoje."
+        data_tests: [not_null]
+
+  - name: mart_inadimplencia_mensal
+    description: "Taxa de inadimplência por mês de vencimento (apenas parcelas já vencidas)."
+    columns:
+      - name: mes_vencimento
+        data_tests: [not_null, unique]
+      - name: taxa_inadimplencia
+        description: "valor das parcelas atrasadas dividido pelo valor total das parcelas vencidas no mês."

@@ -10,11 +10,21 @@ models:
     columns:
       - name: contrato_id
         data_tests: [not_null, unique]
+      - name: cliente_id
+        data_tests:
+          - relationships:
+              to: ref('stg_clientes')
+              field: cliente_id
 
   - name: stg_parcelas
     columns:
       - name: parcela_id
         data_tests: [not_null, unique]
+      - name: contrato_id
+        data_tests:
+          - relationships:
+              to: ref('stg_contratos')
+              field: contrato_id
       - name: status
         data_tests:
           - accepted_values:

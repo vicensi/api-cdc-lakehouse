@@ -1,0 +1,18 @@
+version: 2
+
+snapshots:
+  - name: snap_clientes
+    description: "Historico SCD2 do perfil de credito do cliente (renda, cidade, score). Uma linha por versao."
+    columns:
+      - name: dbt_scd_id
+        description: "Identificador unico de cada versao."
+        data_tests:
+          - unique
+          - not_null
+      - name: id
+        description: "Id do cliente na API."
+        data_tests:
+          - not_null
+      - name: dbt_valid_from
+        data_tests:
+          - not_null

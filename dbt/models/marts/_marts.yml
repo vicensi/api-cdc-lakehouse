@@ -38,3 +38,18 @@ models:
         data_tests: [not_null, unique]
       - name: taxa_inadimplencia
         description: "valor das parcelas atrasadas dividido pelo valor total das parcelas vencidas no mês."
+
+  - name: dim_clientes_historico
+    description: "Dimensao SCD2 de clientes. Uma linha por versao (renda, cidade, score) com janela de validade."
+    columns:
+      - name: cliente_versao_id
+        data_tests: [not_null, unique]
+      - name: cliente_id
+        data_tests: [not_null]
+
+  - name: mart_contratos_perfil_na_contratacao
+    description: "Contratos com o perfil do cliente no momento da contratacao. Uma linha por contrato."
+    columns:
+      - name: contrato_id
+        description: "Se duplicar, ha janelas sobrepostas no historico (fan-out do join SCD2)."
+        data_tests: [not_null, unique]
